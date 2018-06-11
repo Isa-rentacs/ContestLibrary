@@ -2,45 +2,6 @@
 using namespace std;
 
 /*
-    extGCD
-    calculate (x, y) where ax + by = gcd(a,b)
-*/
-long long extGCD(long long a, long long b, long long &x, long long &y)
-{
-    if(b == 0)
-    {
-        x = 1;
-        y = 0;
-        return a;
-    }
-
-    long long d = extGCD(b, a%b, y, x);
-    y -= a / b  *x;
-    return d;
-}
-
-/*
-    mod (a can be negative)
-*/
-long long modulo(long long a, long long mod)
-{
-    return (a % mod + mod) % mod;
-}
-
-/*
-    mod inverse
-    return x where ax mod p === 1
-
-    constraint : gcd(a, m) = 1
-*/
-long long mod_inverse(long long a, long long mod)
-{
-    long long x, y;
-    extGCD(a, mod, x, y);
-    return modulo(x, mod);
-}
-
-/*
    nCk mod p 
    nCk =  n! / ((n-k)! * k!)
    nCk mod p = ((n! mod p) * (((n-k)!)^-1 mod p) * ((k!)^-1 mod p)) mod p
@@ -90,6 +51,45 @@ long long combination_mod(int n, int k, int mod)
     cout << fact_inv[k] << endl;
     cout << fact_inv[n-k] << endl;
     return fact[n] * (fact_inv[k] * fact_inv[n-k] % mod) % mod;
+}
+
+/*
+    extGCD
+    calculate (x, y) where ax + by = gcd(a,b)
+*/
+long long extGCD(long long a, long long b, long long &x, long long &y)
+{
+    if(b == 0)
+    {
+        x = 1;
+        y = 0;
+        return a;
+    }
+
+    long long d = extGCD(b, a%b, y, x);
+    y -= a / b  *x;
+    return d;
+}
+
+/*
+    mod (a can be negative)
+*/
+long long modulo(long long a, long long mod)
+{
+    return (a % mod + mod) % mod;
+}
+
+/*
+    mod inverse
+    return x where ax mod p === 1
+
+    constraint : gcd(a, m) = 1
+*/
+long long mod_inverse(long long a, long long mod)
+{
+    long long x, y;
+    extGCD(a, mod, x, y);
+    return modulo(x, mod);
 }
 
 /*
