@@ -81,7 +81,7 @@ long long modulo(long long a, long long mod)
 
 /*
     mod inverse
-    return x where ax mod p === 1
+    return x where ax mod m === 1
 
     constraint : gcd(a, m) = 1
 */
@@ -90,6 +90,19 @@ long long mod_inverse(long long a, long long mod)
     long long x, y;
     extGCD(a, mod, x, y);
     return modulo(x, mod);
+}
+
+/*
+    mod pow
+    return pow(base, pow) % MOD
+*/
+long long mod_pow(const long long x, long long n, const long long mod) {
+    long long res = 1;
+    if (n == 0) return 1;
+    if (n & 1) res = x;
+    long long y = mod_pow(x, n >> 1, mod);
+    res = (res * (y * y % mod)) % mod;
+    return res;
 }
 
 /*
