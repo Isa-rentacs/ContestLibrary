@@ -25,6 +25,7 @@ const int MAX_K = 300000;
 bool fact_initialized = false;
 long long fact[MAX_K], fact_inv[MAX_K], inv[MAX_K];
 
+// This will be automatically called during combination_mod
 void combination_init(int mod)
 {
     fact[0] = fact[1] = 1;
@@ -39,6 +40,8 @@ void combination_init(int mod)
     }
 }
 
+// Used:
+//   ABC151-E
 long long combination_mod(int n, int k, int mod)
 {
     if (n < k || n < 0 || k < 0) return 0;
@@ -47,9 +50,6 @@ long long combination_mod(int n, int k, int mod)
         combination_init(mod);
         fact_initialized = true;
     } 
-    cout << fact[n] << endl;
-    cout << fact_inv[k] << endl;
-    cout << fact_inv[n-k] << endl;
     return fact[n] * (fact_inv[k] * fact_inv[n-k] % mod) % mod;
 }
 
